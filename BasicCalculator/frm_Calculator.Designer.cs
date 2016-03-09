@@ -69,6 +69,7 @@
             this.txtResult.ReadOnly = true;
             this.txtResult.Size = new System.Drawing.Size(229, 20);
             this.txtResult.TabIndex = 1;
+            this.txtResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnBack
             // 

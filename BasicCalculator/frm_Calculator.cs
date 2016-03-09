@@ -43,7 +43,8 @@ namespace BasicCalculator
         {
             // store our number and clear the text box
             myCalculator.EnterValue(0,Convert.ToDecimal(txtResult.Text));
-            txtResult.Text = "";
+            txtResult.Text += " / ";
+            myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Divide();
         }
@@ -52,7 +53,8 @@ namespace BasicCalculator
         {
             // store our number and clear the text box
             myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text = "";
+            txtResult.Text += " * ";
+            myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Multiply();
         }
@@ -61,7 +63,8 @@ namespace BasicCalculator
         {
             // store our number and clear the text box
             myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text = "";
+            txtResult.Text += " - ";
+            myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Subtract();
         }
@@ -70,7 +73,8 @@ namespace BasicCalculator
         {
             // store our number and clear the text box
             myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text = "";
+            txtResult.Text += " + ";
+            myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Add();
         }
@@ -79,15 +83,24 @@ namespace BasicCalculator
         private void btnEquals_Click(object sender, EventArgs e)
         {
             // store our second number and clear the text box
-            myCalculator.EnterValue(1, Convert.ToDecimal(txtResult.Text));
+            int chars2strip = myCalculator.CurrentValue.Length;
+            string whatEntered = txtResult.Text.Substring(chars2strip);
+            myCalculator.EnterValue(1, Convert.ToDecimal(whatEntered));
             txtResult.Text = "";
+            // work out our answer
             decimal answer = myCalculator.Equals();
             txtResult.Text = answer.ToString();
+            // and then reset calculator's CurrentValue.  
+            myCalculator.CurrentValue = answer.ToString();
+            // I also want to move this to the first entry in the array so my operators act sensibly
+            // as per the spec
+            myCalculator.EnterValue(1, answer);
         }
 
         // method to clear the info stored in the myCalculator object.
         private void btnClear_Click(object sender, EventArgs e)
         {
+            txtResult.Text = "";
             myCalculator.Clear();
         }
 
