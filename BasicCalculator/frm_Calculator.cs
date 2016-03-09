@@ -82,6 +82,18 @@ namespace BasicCalculator
         // and a method to deal with clicking the = button.
         private void btnEquals_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DoTheMath();
+            }
+            catch (DivideByZeroException)
+            {
+                txtResult.Text = "Divide by Zero not allowed.  Clear and try again.";
+            }
+        }
+
+        private void DoTheMath()
+        {
             // store our second number and clear the text box
             int chars2strip = myCalculator.CurrentValue.Length;
             string whatEntered = txtResult.Text.Substring(chars2strip);
@@ -102,6 +114,36 @@ namespace BasicCalculator
         {
             txtResult.Text = "";
             myCalculator.Clear();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            // clear the last character entered.
+            int chars2keep = txtResult.Text.Length - 1;
+            txtResult.Text = txtResult.Text.Substring(0, chars2keep);
+            // TODO keep user from backing over operator?  or handle that sensibly?
+        }
+
+        private void btnSqrt_Click(object sender, EventArgs e)
+        {
+            // first set the current value of the box to the contents of the text box
+            // TODO: need to fix this so it handles any previous calculations gracefully.
+            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
+            decimal answer = myCalculator.SquareRoot();
+            txtResult.Text = answer.ToString();
+            myCalculator.CurrentValue = answer.ToString();
+            myCalculator.EnterValue(0, answer);
+        }
+
+        private void btnReciprocal_Click(object sender, EventArgs e)
+        {
+            // first set the current value of the box to the contents of the text box
+            // TODO: need to fix this so it handles any previous calculations gracefully.
+            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
+            decimal answer = myCalculator.Reciprocal();
+            txtResult.Text = answer.ToString();
+            myCalculator.CurrentValue = answer.ToString();
+            myCalculator.EnterValue(0, answer);
         }
 
 

@@ -60,16 +60,16 @@ namespace BasicCalculator
             return result;
         }
 
-        public decimal SquareRoot(decimal num)
+        public decimal SquareRoot() //decimal num)
         {
             // returns a square root;
-            return Convert.ToDecimal(Math.Sqrt((double) num));
+            return Convert.ToDecimal(Math.Sqrt((double) this.enterValue[0]));
         }
 
-        public decimal Reciprocal(decimal num)
+        public decimal Reciprocal() //decimal num)
         {
             // returns a reciprocal
-            return (1 / num);
+            return (1 / this.enterValue[0]);
         }
 
         // a method to clear the information in the calculator
