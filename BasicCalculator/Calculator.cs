@@ -8,6 +8,11 @@ namespace BasicCalculator
 {
     class Calculator
     {
+        /* 
+         * The spec says this should be a class, but I wonder if it this shouldn't actually be a structure.
+         * Since I'm a little wibbly on that, I'm going to play it safe and keep this as a class.
+         */
+
         public string CurrentValue;
         private string operation;
         private decimal[] enterValue;
@@ -24,12 +29,10 @@ namespace BasicCalculator
         public void Divide() { this.operation = "divide"; }
 
         // method to add operator and operand
-        public void EnterValue(int num)
+        public void EnterValue(int index, decimal num)
         {
             // not quite sure what Andy wants here??????
-            // well, let's do the basic case of just two numbers
-            if (this.enterValue[0] == 0) this.enterValue[0] = num;
-            else this.enterValue[1] = num;
+            this.enterValue[index] = num;
         }
 
         // methods to perform operations

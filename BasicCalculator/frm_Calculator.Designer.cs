@@ -89,6 +89,7 @@
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btn7
             // 
@@ -241,8 +242,10 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(30, 27);
             this.btnAdd.TabIndex = 19;
+            this.btnAdd.Tag = "add";
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSubtract
             // 
@@ -252,8 +255,10 @@
             this.btnSubtract.Name = "btnSubtract";
             this.btnSubtract.Size = new System.Drawing.Size(30, 27);
             this.btnSubtract.TabIndex = 18;
+            this.btnSubtract.Tag = "subtract";
             this.btnSubtract.Text = "-";
             this.btnSubtract.UseVisualStyleBackColor = true;
+            this.btnSubtract.Click += new System.EventHandler(this.btnSubtract_Click);
             // 
             // btnMultiply
             // 
@@ -263,8 +268,10 @@
             this.btnMultiply.Name = "btnMultiply";
             this.btnMultiply.Size = new System.Drawing.Size(30, 27);
             this.btnMultiply.TabIndex = 17;
+            this.btnMultiply.Tag = "multiply";
             this.btnMultiply.Text = "*";
             this.btnMultiply.UseVisualStyleBackColor = true;
+            this.btnMultiply.Click += new System.EventHandler(this.btnMultiply_Click);
             // 
             // btnDivide
             // 
@@ -274,8 +281,10 @@
             this.btnDivide.Name = "btnDivide";
             this.btnDivide.Size = new System.Drawing.Size(30, 27);
             this.btnDivide.TabIndex = 16;
+            this.btnDivide.Tag = "divide";
             this.btnDivide.Text = "/";
             this.btnDivide.UseVisualStyleBackColor = true;
+            this.btnDivide.Click += new System.EventHandler(this.btnDivide_Click);
             // 
             // btnReciprocal
             // 
@@ -309,6 +318,7 @@
             this.btnEquals.TabIndex = 22;
             this.btnEquals.Text = "=";
             this.btnEquals.UseVisualStyleBackColor = true;
+            this.btnEquals.Click += new System.EventHandler(this.btnEquals_Click);
             // 
             // frm_Calculator
             // 

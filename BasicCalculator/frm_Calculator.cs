@@ -12,6 +12,9 @@ namespace BasicCalculator
 {
     public partial class frm_Calculator : Form
     {
+        // initialize a variable to store the calculator
+        Calculator myCalculator = new Calculator();
+
         public frm_Calculator()
         {
             InitializeComponent();
@@ -28,6 +31,64 @@ namespace BasicCalculator
             decimal toNegate = Convert.ToDecimal(txtResult.Text);
             toNegate = -toNegate;
             txtResult.Text = toNegate.ToString();
+        }
+
+        // set operator and store the most recently entered number
+        /*
+         * This is kludgy IMO.  It'd be more elegant to have a single method that reads the button's Tag
+         * attribute and sets the operator to that after updating the values to do math on.  The Project
+         * specs say we're supposed to have these four methods, so here they are.
+         */ 
+        private void btnDivide_Click(object sender, EventArgs e)
+        {
+            // store our number and clear the text box
+            myCalculator.EnterValue(0,Convert.ToDecimal(txtResult.Text));
+            txtResult.Text = "";
+            // and set the operator that has been selected
+            myCalculator.Divide();
+        }
+
+        private void btnMultiply_Click(object sender, EventArgs e)
+        {
+            // store our number and clear the text box
+            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
+            txtResult.Text = "";
+            // and set the operator that has been selected
+            myCalculator.Multiply();
+        }
+
+        private void btnSubtract_Click(object sender, EventArgs e)
+        {
+            // store our number and clear the text box
+            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
+            txtResult.Text = "";
+            // and set the operator that has been selected
+            myCalculator.Subtract();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            // store our number and clear the text box
+            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
+            txtResult.Text = "";
+            // and set the operator that has been selected
+            myCalculator.Add();
+        }
+
+        // and a method to deal with clicking the = button.
+        private void btnEquals_Click(object sender, EventArgs e)
+        {
+            // store our second number and clear the text box
+            myCalculator.EnterValue(1, Convert.ToDecimal(txtResult.Text));
+            txtResult.Text = "";
+            decimal answer = myCalculator.Equals();
+            txtResult.Text = answer.ToString();
+        }
+
+        // method to clear the info stored in the myCalculator object.
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            myCalculator.Clear();
         }
 
 
