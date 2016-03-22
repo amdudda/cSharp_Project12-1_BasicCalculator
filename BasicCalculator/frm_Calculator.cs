@@ -155,6 +155,28 @@ namespace BasicCalculator
             myCalculator.EnterValue(0, answer);
         }
 
+        private void frm_Calculator_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // listens for keyboard input and acts on it as appropriate.
+            // e.KeyCode is the code of the charater pressed
+            // see https://msdn.microsoft.com/en-us/library/system.windows.forms.control.keydown.aspx?f=255&MSPPError=-2147217396 ffi
+
+            char myCharacter = e.KeyChar;
+            string digits = "0123456789";
+            if (digits.IndexOf(myCharacter) != -1)
+            {
+                // process the number
+                MessageBox.Show("You typed the number: " + myCharacter);
+                e.Handled = true;
+            }
+            else
+            {
+                // further processing
+                MessageBox.Show("You typed the character: " + myCharacter);
+                e.Handled = true;
+            }
+        }
+
 
     }
 }
