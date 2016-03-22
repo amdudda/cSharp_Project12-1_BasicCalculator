@@ -84,11 +84,20 @@ namespace BasicCalculator
         {
             try
             {
+                // throw new Exception();
                 DoTheMath();
             }
             catch (DivideByZeroException)
             {
                 txtResult.Text = "Divide by Zero not allowed.  Clear and try again.";
+            }
+            catch (Exception ex)
+            {
+                // in a production version, we'd be more user friendly and not display the stack trace!
+                string msg = "An unexpected error occurred: \n";
+                msg += ex.Message + "\n" + ex.StackTrace;
+                string caption = ex.GetType().ToString();
+                MessageBox.Show(msg, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
