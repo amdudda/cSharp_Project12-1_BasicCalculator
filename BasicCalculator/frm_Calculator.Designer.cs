@@ -51,6 +51,7 @@
             this.btnReciprocal = new System.Windows.Forms.Button();
             this.btnSqrt = new System.Windows.Forms.Button();
             this.btnEquals = new System.Windows.Forms.Button();
+            this.lblHints = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,6 +71,7 @@
             this.txtResult.Size = new System.Drawing.Size(229, 20);
             this.txtResult.TabIndex = 1;
             this.txtResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtResult.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frm_Calculator_KeyPress);
             // 
             // btnBack
             // 
@@ -78,7 +80,7 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(112, 23);
             this.btnBack.TabIndex = 2;
-            this.btnBack.Text = "Back";
+            this.btnBack.Text = "&Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -89,7 +91,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(92, 23);
             this.btnClear.TabIndex = 3;
-            this.btnClear.Text = "Clear";
+            this.btnClear.Text = "&Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -296,6 +298,7 @@
             this.btnReciprocal.Name = "btnReciprocal";
             this.btnReciprocal.Size = new System.Drawing.Size(38, 27);
             this.btnReciprocal.TabIndex = 21;
+            this.btnReciprocal.Tag = "r";
             this.btnReciprocal.Text = "1/x";
             this.btnReciprocal.UseVisualStyleBackColor = true;
             this.btnReciprocal.Click += new System.EventHandler(this.btnReciprocal_Click);
@@ -308,6 +311,7 @@
             this.btnSqrt.Name = "btnSqrt";
             this.btnSqrt.Size = new System.Drawing.Size(38, 27);
             this.btnSqrt.TabIndex = 20;
+            this.btnSqrt.Tag = "s";
             this.btnSqrt.Text = "sqrt";
             this.btnSqrt.UseVisualStyleBackColor = true;
             this.btnSqrt.Click += new System.EventHandler(this.btnSqrt_Click);
@@ -320,15 +324,29 @@
             this.btnEquals.Name = "btnEquals";
             this.btnEquals.Size = new System.Drawing.Size(38, 56);
             this.btnEquals.TabIndex = 22;
+            this.btnEquals.Tag = "=";
             this.btnEquals.Text = "=";
             this.btnEquals.UseVisualStyleBackColor = true;
             this.btnEquals.Click += new System.EventHandler(this.btnEquals_Click);
             // 
+            // lblHints
+            // 
+            this.lblHints.AutoSize = true;
+            this.lblHints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHints.Location = new System.Drawing.Point(13, 233);
+            this.lblHints.Name = "lblHints";
+            this.lblHints.Size = new System.Drawing.Size(144, 13);
+            this.lblHints.TabIndex = 23;
+            this.lblHints.Text = "Click here for keyboard hints.";
+            this.lblHints.Click += new System.EventHandler(this.lblHints_Click);
+            // 
             // frm_Calculator
             // 
+            this.AcceptButton = this.btnEquals;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(258, 258);
+            this.Controls.Add(this.lblHints);
             this.Controls.Add(this.btnEquals);
             this.Controls.Add(this.btnReciprocal);
             this.Controls.Add(this.btnSqrt);
@@ -386,6 +404,7 @@
         private System.Windows.Forms.Button btnReciprocal;
         private System.Windows.Forms.Button btnSqrt;
         private System.Windows.Forms.Button btnEquals;
+        private System.Windows.Forms.Label lblHints;
     }
 }
 

@@ -18,6 +18,7 @@ namespace BasicCalculator
         public frm_Calculator()
         {
             InitializeComponent();
+            this.Focus();
         }
 
         private void NumberButton_Click(object sender, EventArgs e)
@@ -129,7 +130,7 @@ namespace BasicCalculator
         {
             // clear the last character entered.
             int chars2keep = txtResult.Text.Length - 1;
-            txtResult.Text = txtResult.Text.Substring(0, chars2keep);
+            if (chars2keep > 0) txtResult.Text = txtResult.Text.Substring(0, chars2keep);
             // TODO keep user from backing over operator?  or handle that sensibly?
         }
 
@@ -161,20 +162,95 @@ namespace BasicCalculator
             // e.KeyCode is the code of the charater pressed
             // see https://msdn.microsoft.com/en-us/library/system.windows.forms.control.keydown.aspx?f=255&MSPPError=-2147217396 ffi
 
-            char myCharacter = e.KeyChar;
+            string myCharacter = e.KeyChar.ToString();
+            //MessageBox.Show("" + myCharacter);
             string digits = "0123456789";
+            string operators = "+--/*";  // we want to treat dash and minus as the same thing
             if (digits.IndexOf(myCharacter) != -1)
             {
-                // process the number
-                MessageBox.Show("You typed the number: " + myCharacter);
-                e.Handled = true;
+                // process the character
+                //MessageBox.Show("You typed the number: " + myCharacter);
+                foreach (Control b in this.Controls)
+                {
+                    string myTag;
+                    if (b.Tag == null) myTag = "";
+                        else myTag = b.Tag.ToString();
+                    if (b is Button && (myTag == myCharacter))
+                    {
+                        // MessageBox.Show("Processing button " + b.Tag);
+                        // do the thing associated with that button
+                        NumberButton_Click(b,null);
+                    }
+                }
+            }
+            else if (operators.IndexOf(myCharacter) != -1)
+            {
+                ProcessOperator(myCharacter);
+            }
+            else if ("sr=n".IndexOf(myCharacter) != -1)
+            {
+                if (myCharacter == "s") btnSqrt_Click(btnSqrt, null);
+                else if (myCharacter == "r") btnReciprocal_Click(btnReciprocal, null);
+                else if (myCharacter == "=") btnEquals_Click(btnEquals, null);
+                else // negative chosen
+                    btnNegative_Click(btnNegative, null);
             }
             else
             {
-                // further processing
-                MessageBox.Show("You typed the character: " + myCharacter);
-                e.Handled = true;
+                // do nothing
             }
+
+
+            e.Handled = true;
+        }
+
+        private void ProcessOperator(string myCharacter)
+        {
+            foreach (Control b in this.Controls)
+            {
+                string myTag;
+                if (b.Text == null) myTag = "";
+                else myTag = b.Text;
+                if (b is Button && (myTag == myCharacter))
+                {
+                    MessageBox.Show("Processing button " + b.Tag);
+                    //do the thing associated with that button
+                    switch (myTag)
+                    {
+                        case "+":
+                            {
+                                btnAdd_Click(b, null);
+                                break;
+                            }
+                        case "*":
+                            {
+                                btnMultiply_Click(b, null);
+                                break;
+                            }
+                        case "/":
+                            {
+                                btnDivide_Click(b, null);
+                                break;
+                            }
+                        default:
+                            {
+                                // a minuslike key has been pressed
+                                btnSubtract_Click(b, null);
+                                break;
+                            }
+                    } // end switch-case
+                } // end if b is button
+            } // end foreach Control
+        }
+
+        private void lblHints_Click(object sender, EventArgs e)
+        {
+            string msg = "You can use the keyboard to enter data.  \n"+
+                "Use numbers and +, -, /, * for basic operations.\n" +
+                "Use [=] or [enter] to perform basic math.\n" +
+                "Square root can be accessed with [s], reciprocal with [r], and negation with [n].\n" +
+                "Use Alt+B to backspace, or Alt+C to clear all input.";
+            MessageBox.Show(msg,"Tips and Tricks",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
 
