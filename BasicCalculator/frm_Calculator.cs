@@ -92,6 +92,16 @@ namespace BasicCalculator
             {
                 txtResult.Text = "Divide by Zero not allowed.  Clear and try again.";
             }
+            catch (FormatException)
+            {
+                string msg = "Something is broken with your input.  Check to make sure you haven't accidentally entered extraneous characters or accidentally pressed [Enter] without inputting a second number to operate on.";
+                MessageBox.Show(msg, "Can't do math!");
+            }
+            catch (NullReferenceException)
+            {
+                string msg = "You tried to do a calculation on only one value. Please make sure you have selected an operator and entered a second value.";
+                MessageBox.Show(msg, "Bad Math!");
+            }
             catch (Exception ex)
             {
                 // in a production version, we'd be more user friendly and not display the stack trace!
@@ -161,10 +171,11 @@ namespace BasicCalculator
             // listens for keyboard input and acts on it as appropriate.
             // e.KeyCode is the code of the charater pressed
             // see https://msdn.microsoft.com/en-us/library/system.windows.forms.control.keydown.aspx?f=255&MSPPError=-2147217396 ffi
+            // this also helped: https://msdn.microsoft.com/en-us/library/ms171538%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396
 
             string myCharacter = e.KeyChar.ToString();
             //MessageBox.Show("" + myCharacter);
-            string digits = "0123456789";
+            string digits = "0123456789.";
             string operators = "+--/*";  // we want to treat dash and minus as the same thing
             if (digits.IndexOf(myCharacter) != -1)
             {
@@ -200,7 +211,6 @@ namespace BasicCalculator
                 // do nothing
             }
 
-
             e.Handled = true;
         }
 
@@ -213,7 +223,7 @@ namespace BasicCalculator
                 else myTag = b.Text;
                 if (b is Button && (myTag == myCharacter))
                 {
-                    MessageBox.Show("Processing button " + b.Tag);
+                    // MessageBox.Show("Processing button " + b.Tag);
                     //do the thing associated with that button
                     switch (myTag)
                     {
@@ -241,13 +251,13 @@ namespace BasicCalculator
                     } // end switch-case
                 } // end if b is button
             } // end foreach Control
-        }
+        } // end ProcessOperator
 
         private void lblHints_Click(object sender, EventArgs e)
         {
             string msg = "You can use the keyboard to enter data.  \n"+
                 "Use numbers and +, -, /, * for basic operations.\n" +
-                "Use [=] or [enter] to perform basic math.\n" +
+                "Use [=] or [enter] to trigger the calculation.\n" +
                 "Square root can be accessed with [s], reciprocal with [r], and negation with [n].\n" +
                 "Use Alt+B to backspace, or Alt+C to clear all input.";
             MessageBox.Show(msg,"Tips and Tricks",MessageBoxButtons.OK,MessageBoxIcon.Information);
