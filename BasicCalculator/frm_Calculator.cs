@@ -14,6 +14,7 @@ namespace BasicCalculator
     {
         // initialize a variable to store the calculator
         Calculator myCalculator = new Calculator();
+        bool hasDot = false;
 
         public frm_Calculator()
         {
@@ -23,8 +24,14 @@ namespace BasicCalculator
 
         private void NumberButton_Click(object sender, EventArgs e)
         {
+            // we know this is going to be a button, so this explicit cast is safe to do.
             Button clickedButton = (Button) sender;
-            txtResult.Text += Convert.ToString(clickedButton.Tag);
+            bool noLeadingZeros = !(clickedButton.Tag == "0" && txtResult.Text == "");
+            bool onlyOneDecimal = !(clickedButton.Tag == "." && hasDot);
+            // make sure that we don't generate a whole bunch of useless leading zeroes.
+            if ( noLeadingZeros && onlyOneDecimal)
+                txtResult.Text += Convert.ToString(clickedButton.Tag);
+            if (clickedButton.Tag == ".") hasDot = true;
         }
 
         private void btnNegative_Click(object sender, EventArgs e)
@@ -48,6 +55,7 @@ namespace BasicCalculator
             myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Divide();
+            hasDot = false;
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
@@ -58,6 +66,7 @@ namespace BasicCalculator
             myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Multiply();
+            hasDot = false;
         }
 
         private void btnSubtract_Click(object sender, EventArgs e)
@@ -68,6 +77,7 @@ namespace BasicCalculator
             myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Subtract();
+            hasDot = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -78,6 +88,7 @@ namespace BasicCalculator
             myCalculator.CurrentValue = txtResult.Text;
             // and set the operator that has been selected
             myCalculator.Add();
+            hasDot = false;
         }
 
         // and a method to deal with clicking the = button.
