@@ -26,8 +26,8 @@ namespace BasicCalculator
         {
             // we know this is going to be a button, so this explicit cast is safe to do.
             Button clickedButton = (Button) sender;
-            bool noLeadingZeros = !(clickedButton.Tag == "0" && txtResult.Text == "");
-            bool onlyOneDecimal = !(clickedButton.Tag == "." && hasDot);
+            bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "");
+            bool onlyOneDecimal = !(clickedButton.Tag.ToString() == "." && hasDot);
             // make sure that we don't generate a whole bunch of useless leading zeroes.
             if ( noLeadingZeros && onlyOneDecimal)
                 txtResult.Text += Convert.ToString(clickedButton.Tag);
@@ -36,59 +36,47 @@ namespace BasicCalculator
 
         private void btnNegative_Click(object sender, EventArgs e)
         {
+            // TODO: this breaks if you try to negate the second number in the operation
             decimal toNegate = Convert.ToDecimal(txtResult.Text);
             toNegate = -toNegate;
             txtResult.Text = toNegate.ToString();
         }
 
         // set operator and store the most recently entered number
-        /*
-         * This is kludgy IMO.  It'd be more elegant to have a single method that reads the button's Tag
-         * attribute and sets the operator to that after updating the values to do math on.  The Project
-         * specs say we're supposed to have these four methods, so here they are.
-         */ 
-        private void btnDivide_Click(object sender, EventArgs e)
+        private void OperatorButton_Click(object sender, EventArgs e)
         {
-            // store our number and clear the text box
-            myCalculator.EnterValue(0,Convert.ToDecimal(txtResult.Text));
-            txtResult.Text += " / ";
-            myCalculator.CurrentValue = txtResult.Text;
-            // and set the operator that has been selected
-            myCalculator.Divide();
-            hasDot = false;
-        }
+            // we know this is going to be a button, so this explicit cast is safe to do.
+            Button myButton = (Button) sender;
+            string buttonTag = myButton.Tag.ToString();
 
-        private void btnMultiply_Click(object sender, EventArgs e)
-        {
             // store our number and clear the text box
             myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text += " * ";
+            // process which operator was clicked and act appropriately
+            // set the operator that has been selected
+            if (buttonTag == "divide")
+            {
+                myCalculator.Divide();
+                txtResult.Text += " / ";
+            }
+            else if (buttonTag == "multiply")
+            {
+                myCalculator.Multiply();
+                txtResult.Text += " * ";
+            }
+            else if (buttonTag == "subtract")
+            {
+                myCalculator.Subtract();
+                txtResult.Text += " - ";
+            }
+            else if (buttonTag == "add")
+            {
+                myCalculator.Add();
+                txtResult.Text += " + ";
+            }
+            // update currentvalue and hasDot
             myCalculator.CurrentValue = txtResult.Text;
-            // and set the operator that has been selected
-            myCalculator.Multiply();
             hasDot = false;
-        }
 
-        private void btnSubtract_Click(object sender, EventArgs e)
-        {
-            // store our number and clear the text box
-            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text += " - ";
-            myCalculator.CurrentValue = txtResult.Text;
-            // and set the operator that has been selected
-            myCalculator.Subtract();
-            hasDot = false;
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            // store our number and clear the text box
-            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            txtResult.Text += " + ";
-            myCalculator.CurrentValue = txtResult.Text;
-            // and set the operator that has been selected
-            myCalculator.Add();
-            hasDot = false;
         }
 
         // and a method to deal with clicking the = button.
@@ -234,32 +222,7 @@ namespace BasicCalculator
                 else myTag = b.Text;
                 if (b is Button && (myTag == myCharacter))
                 {
-                    // MessageBox.Show("Processing button " + b.Tag);
-                    //do the thing associated with that button
-                    switch (myTag)
-                    {
-                        case "+":
-                            {
-                                btnAdd_Click(b, null);
-                                break;
-                            }
-                        case "*":
-                            {
-                                btnMultiply_Click(b, null);
-                                break;
-                            }
-                        case "/":
-                            {
-                                btnDivide_Click(b, null);
-                                break;
-                            }
-                        default:
-                            {
-                                // a minuslike key has been pressed
-                                btnSubtract_Click(b, null);
-                                break;
-                            }
-                    } // end switch-case
+                    OperatorButton_Click(b, null);
                 } // end if b is button
             } // end foreach Control
         } // end ProcessOperator

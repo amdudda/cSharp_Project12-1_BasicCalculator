@@ -248,7 +248,7 @@
             this.btnAdd.Tag = "add";
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.OperatorButton_Click);
             // 
             // btnSubtract
             // 
@@ -261,7 +261,7 @@
             this.btnSubtract.Tag = "subtract";
             this.btnSubtract.Text = "-";
             this.btnSubtract.UseVisualStyleBackColor = true;
-            this.btnSubtract.Click += new System.EventHandler(this.btnSubtract_Click);
+            this.btnSubtract.Click += new System.EventHandler(this.OperatorButton_Click);
             // 
             // btnMultiply
             // 
@@ -274,7 +274,7 @@
             this.btnMultiply.Tag = "multiply";
             this.btnMultiply.Text = "*";
             this.btnMultiply.UseVisualStyleBackColor = true;
-            this.btnMultiply.Click += new System.EventHandler(this.btnMultiply_Click);
+            this.btnMultiply.Click += new System.EventHandler(this.OperatorButton_Click);
             // 
             // btnDivide
             // 
@@ -287,7 +287,7 @@
             this.btnDivide.Tag = "divide";
             this.btnDivide.Text = "/";
             this.btnDivide.UseVisualStyleBackColor = true;
-            this.btnDivide.Click += new System.EventHandler(this.btnDivide_Click);
+            this.btnDivide.Click += new System.EventHandler(this.OperatorButton_Click);
             // 
             // btnReciprocal
             // 
