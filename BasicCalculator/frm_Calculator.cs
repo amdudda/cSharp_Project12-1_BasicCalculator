@@ -31,7 +31,7 @@ namespace BasicCalculator
             // make sure that we don't generate a whole bunch of useless leading zeroes.
             if ( noLeadingZeros && onlyOneDecimal)
                 txtResult.Text += Convert.ToString(clickedButton.Tag);
-            if (clickedButton.Tag == ".") hasDot = true;
+            if (clickedButton.Tag.ToString() == ".") hasDot = true;
         }
 
         private void btnNegative_Click(object sender, EventArgs e)
@@ -73,8 +73,9 @@ namespace BasicCalculator
                 myCalculator.Add();
                 txtResult.Text += " + ";
             }
-            // update currentvalue and hasDot
+            // update currentvalue and hasDot, then clear contents of txtResult
             myCalculator.CurrentValue = txtResult.Text;
+            txtResult.Text = "";
             hasDot = false;
 
         }
@@ -114,9 +115,7 @@ namespace BasicCalculator
         private void DoTheMath()
         {
             // store our second number and clear the text box
-            int chars2strip = myCalculator.CurrentValue.Length;
-            string whatEntered = txtResult.Text.Substring(chars2strip);
-            myCalculator.EnterValue(1, Convert.ToDecimal(whatEntered));
+            myCalculator.EnterValue(1, Convert.ToDecimal(txtResult.Text)); 
             txtResult.Text = "";
             // work out our answer
             decimal answer = myCalculator.Equals();
