@@ -16,10 +16,12 @@ namespace BasicCalculator
         public string CurrentValue;
         private string operation;
         private decimal[] enterValue;
+        private static bool clearinput; // tracks whether we need to clear input - sets to true after enter key is pressed
 
         // basic constructor
         public Calculator() {
             this.enterValue = new decimal[2];
+            clearinput = false; 
         }
 
         // methods to set current operator
@@ -79,5 +81,16 @@ namespace BasicCalculator
             this.operation = "";
             Array.Clear(enterValue,0,enterValue.Length);
         }
+
+        public bool Clearinput()
+        {
+                return clearinput;
+        }
+
+        public void Clearinput(bool needscleared)
+        {
+            clearinput = needscleared;
+        }
+
     }
 }

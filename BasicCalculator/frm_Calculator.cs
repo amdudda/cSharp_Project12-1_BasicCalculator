@@ -26,6 +26,12 @@ namespace BasicCalculator
         {
             // we know this is going to be a button, so this explicit cast is safe to do.
             Button clickedButton = (Button) sender;
+            // clear previous result from screen
+            if (myCalculator.Clearinput())
+            {
+                txtResult.Text = "";
+                myCalculator.Clearinput(false);
+            }
             bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "");
             bool onlyOneDecimal = !(clickedButton.Tag.ToString() == "." && hasDot);
             // make sure that we don't generate a whole bunch of useless leading zeroes.
@@ -36,7 +42,7 @@ namespace BasicCalculator
 
         private void btnNegative_Click(object sender, EventArgs e)
         {
-            // TODO: this breaks if you try to negate the second number in the operation
+            // negates the number currently displayed.
             decimal toNegate = Convert.ToDecimal(txtResult.Text);
             toNegate = -toNegate;
             txtResult.Text = toNegate.ToString();
@@ -104,7 +110,7 @@ namespace BasicCalculator
             }
             catch (Exception ex)
             {
-                // in a production version, we'd be more user friendly and not display the stack trace!
+                // TODO in a production version, we'd be more user friendly and not display the stack trace!
                 string msg = "An unexpected error occurred: \n";
                 msg += ex.Message + "\n" + ex.StackTrace;
                 string caption = ex.GetType().ToString();
@@ -125,6 +131,8 @@ namespace BasicCalculator
             // I also want to move this to the first entry in the array so my operators act sensibly
             // as per the spec
             myCalculator.EnterValue(1, answer);
+            // also set the form to clear if a user enters a number
+            myCalculator.Clearinput(true);
         }
 
         // method to clear the info stored in the myCalculator object.
