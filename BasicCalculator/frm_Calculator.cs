@@ -14,7 +14,6 @@ namespace BasicCalculator
     {
         // initialize a variable to store the calculator
         Calculator myCalculator = new Calculator();
-        bool hasDot = false;
 
         public frm_Calculator()
         {
@@ -32,12 +31,13 @@ namespace BasicCalculator
                 txtResult.Text = "";
                 myCalculator.Clearinput(false);
             }
-            bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "");
-            bool onlyOneDecimal = !(clickedButton.Tag.ToString() == "." && hasDot);
+            // if dot button and a dot already exists, return (do nothing)
+            if ( clickedButton.Tag.ToString() == "." && (txtResult.Text.IndexOf(".") != -1)) return;
+
             // make sure that we don't generate a whole bunch of useless leading zeroes.
-            if ( noLeadingZeros && onlyOneDecimal)
+            bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "");
+            if ( noLeadingZeros) 
                 txtResult.Text += Convert.ToString(clickedButton.Tag);
-            if (clickedButton.Tag.ToString() == ".") hasDot = true;
         }
 
         private void btnNegative_Click(object sender, EventArgs e)
@@ -82,7 +82,6 @@ namespace BasicCalculator
             // update currentvalue and hasDot, then clear contents of txtResult
             myCalculator.CurrentValue = txtResult.Text;
             txtResult.Text = "";
-            hasDot = false;
 
         }
 
