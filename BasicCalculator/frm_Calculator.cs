@@ -35,7 +35,7 @@ namespace BasicCalculator
             if ( clickedButton.Tag.ToString() == "." && (txtResult.Text.IndexOf(".") != -1)) return;
 
             // make sure that we don't generate a whole bunch of useless leading zeroes.
-            bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "");
+            bool noLeadingZeros = !(clickedButton.Tag.ToString() == "0" && txtResult.Text == "0");
             if ( noLeadingZeros) 
                 txtResult.Text += Convert.ToString(clickedButton.Tag);
         }
@@ -139,13 +139,15 @@ namespace BasicCalculator
         {
             txtResult.Text = "";
             myCalculator.Clear();
+            txtResult.Focus();
+            Console.Write("val1: " + myCalculator.EnterValue(0) + ", val2: " + myCalculator.EnterValue(1));
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             // clear the last character entered.
             int chars2keep = txtResult.Text.Length - 1;
-            if (chars2keep > 0) txtResult.Text = txtResult.Text.Substring(0, chars2keep);
+            if (chars2keep >= 0) txtResult.Text = txtResult.Text.Substring(0, chars2keep);
             // TODO keep user from backing over operator?  or handle that sensibly?
         }
 

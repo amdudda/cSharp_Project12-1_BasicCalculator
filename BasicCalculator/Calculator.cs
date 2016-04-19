@@ -37,10 +37,14 @@ namespace BasicCalculator
             this.enterValue[index] = num;
         }
 
+        public decimal EnterValue(int index)
+        {
+            return this.enterValue[index];
+        }
+
         // methods to perform operations
         public decimal Equals()
         {
-            // TODO: Validation before getting here!
             // calculates basic operations
             decimal result = 0;
             if (this.operation == "add")
