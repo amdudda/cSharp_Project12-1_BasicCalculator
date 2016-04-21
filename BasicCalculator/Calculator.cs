@@ -66,16 +66,29 @@ namespace BasicCalculator
             return result;
         }
 
-        public decimal SquareRoot() //decimal num)
+        public decimal SquareRoot(decimal toRoot) //decimal num)
         {
-            // returns a square root;
-            return Convert.ToDecimal(Math.Sqrt((double) this.enterValue[0]));
+            // returns a square root - check for negative numbers!
+            if (toRoot < 0)
+            {
+                System.Windows.Forms.MessageBox.Show("Cannot retrieve square root of negative number!","Invalid Entry",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Warning);
+                return toRoot;
+            }
+            else
+            {
+                return Convert.ToDecimal(Math.Sqrt((double)toRoot));
+            }
         }
 
-        public decimal Reciprocal() //decimal num)
+        public decimal Reciprocal(decimal toflip) //decimal num)
         {
             // returns a reciprocal
-            return (1 / this.enterValue[0]);
+            return (1 / toflip);
+        }
+
+        public decimal Negative(decimal toSign)
+        {
+            return -toSign;
         }
 
         // a method to clear the information in the calculator

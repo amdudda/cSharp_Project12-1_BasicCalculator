@@ -44,8 +44,7 @@ namespace BasicCalculator
         {
             // negates the number currently displayed.
             decimal toNegate = Convert.ToDecimal(txtResult.Text);
-            toNegate = -toNegate;
-            txtResult.Text = toNegate.ToString();
+            txtResult.Text = myCalculator.Negative(toNegate).ToString();
         }
 
         // set operator and store the most recently entered number
@@ -153,24 +152,18 @@ namespace BasicCalculator
 
         private void btnSqrt_Click(object sender, EventArgs e)
         {
-            // first set the current value of the box to the contents of the text box
-            // TODO: need to fix this so it handles any previous calculations gracefully.
-            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            decimal answer = myCalculator.SquareRoot();
+            decimal toSqrt = Convert.ToDecimal(txtResult.Text);
+            decimal answer = myCalculator.SquareRoot(toSqrt);
             txtResult.Text = answer.ToString();
-            myCalculator.CurrentValue = answer.ToString();
-            myCalculator.EnterValue(0, answer);
         }
 
         private void btnReciprocal_Click(object sender, EventArgs e)
         {
-            // first set the current value of the box to the contents of the text box
-            // TODO: need to fix this so it handles any previous calculations gracefully.
-            myCalculator.EnterValue(0, Convert.ToDecimal(txtResult.Text));
-            decimal answer = myCalculator.Reciprocal();
+            decimal toRecip = Convert.ToDecimal(txtResult.Text);
+            decimal answer = myCalculator.Reciprocal(toRecip);
             txtResult.Text = answer.ToString();
-            myCalculator.CurrentValue = answer.ToString();
-            myCalculator.EnterValue(0, answer);
+            //myCalculator.CurrentValue = answer.ToString();
+            //myCalculator.EnterValue(0, answer);
         }
 
         private void frm_Calculator_KeyPress(object sender, KeyPressEventArgs e)
